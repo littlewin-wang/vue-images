@@ -1,15 +1,12 @@
 <template>
   <div class="app">
-    <icon :type="type" :color="color" class="icon-x"></icon>
-    <thumbnail :imageUrl="imageUrl"></thumbnail>
-    <thumbnail :imageUrl="imageUrl"></thumbnail>
-    <thumbnail :imageUrl="imageUrl"></thumbnail>
+    <paginator></paginator>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-import icon from './components/icon'
-import thumbnail from './components/thumbnail'
+import icon from 'components/common/icon'
+import paginator from 'components/paginator'
 
 export default {
   name: 'app',
@@ -22,7 +19,7 @@ export default {
   },
   components: {
     icon,
-    thumbnail
+    paginator
   }
 }
 </script>
