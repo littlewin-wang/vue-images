@@ -6,7 +6,7 @@
           <icon :type="'close'" :color="'#ccc'"></icon>
         </div>
       </div>
-      <img class="image" :src="mapInfo.imageUrl">
+      <img class="image" :src="mapInfo.imageUrl" @click="addIndex">
       <div class="footer">
         <span class="caption">{{ mapInfo.caption }}</span>
         <span class="count">{{ mapInfo.index }} of {{ mapInfo.total }}</span>
@@ -56,7 +56,6 @@
   .fancybox
     position: relative
     margin-bottom: 20px
-    max-width: 1024px
     .image-wrapper
       width: 50%
       margin: 0 auto
@@ -75,6 +74,7 @@
         width: 100%
         margin: 0 auto
         cursor: pointer
+        user-select: none
       .footer
         position: relative
         padding: 5px

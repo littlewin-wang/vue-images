@@ -90,7 +90,9 @@
     },
     methods: {
       nextImg () {
-        this.index++
+        if (this.index < this.images.length - 1) {
+          this.index++
+        }
       },
       prevImg () {
         this.index--
