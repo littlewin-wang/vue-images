@@ -85,6 +85,7 @@
     width: 360px
     position: relative
     text-align: center
+    margin: 0 auto
     .arrow
       display: inline-block
       position: absolute
