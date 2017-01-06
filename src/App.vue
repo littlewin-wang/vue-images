@@ -121,7 +121,7 @@
     top: 0
     width: 100%
     height: 100%
-    padding: 10px
+    padding: 2px
     background: rgba(0, 0, 0, 0.8)
     box-sizing: border-box
     font-size: 0

@@ -79,7 +79,10 @@
         display: block
         max-height: calc(100vh - 160px)
         min-height: 200px
-        max-width: calc(90vw)
+        @media screen and (min-width:720px)
+          max-width: calc(85vw)
+        @media screen and (max-width:720px)
+          max-width: calc(98vw)
         margin: 0 auto
         cursor: pointer
         user-select: none
@@ -99,8 +102,12 @@
       display: inline-block
       position: absolute
       top: calc(50vh - 25px)
-      height: 50px
-      width: 50px
+      @media screen and (min-width:720px)
+        height: 40px
+        width: 40px
+      @media screen and (max-width:720px)
+        height: 20px
+        width: 20px
       cursor: pointer
       &.left
         left: 0
