@@ -2,11 +2,11 @@
   <div class="fancybox">
     <div class="image-wrapper">
       <div class="header">
-        <div class="close">
+        <div class="close" @click="close">
           <icon :type="'close'" :color="'#ccc'"></icon>
         </div>
       </div>
-      <img class="image" :src="mapInfo.imageUrl" @click="addIndex">
+        <img class="image" :src="mapInfo.imageUrl" @click="addIndex">
       <div class="footer">
         <span class="caption">{{ mapInfo.caption }}</span>
         <span class="count">{{ mapInfo.index }} of {{ mapInfo.total }}</span>
@@ -44,6 +44,9 @@
       },
       addIndex () {
         this.$emit('addIndex')
+      },
+      close () {
+        this.$emit('close')
       }
     },
     components: {
@@ -55,9 +58,12 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .fancybox
     position: relative
-    margin-bottom: 20px
+    display: flex
+    height: calc(100% - 80px)
+    text-align: center
+    align-items: center
     .image-wrapper
-      width: 50%
+      display: inline-block
       margin: 0 auto
       .header
         height: 40px
@@ -71,24 +77,28 @@
           cursor: pointer
       .image
         display: block
-        width: 100%
+        max-height: calc(100vh - 160px)
+        min-height: 200px
+        max-width: calc(90vw)
         margin: 0 auto
         cursor: pointer
         user-select: none
       .footer
         position: relative
         padding: 5px
+        text-align: left
         span
           display: inline-block
           font-size: 14px
           color: #fff
         .count
           position: absolute
+          font-size: 12px
           right: 0
     .arrow
       display: inline-block
       position: absolute
-      top: 50%
+      top: calc(50vh - 25px)
       height: 50px
       width: 50px
       cursor: pointer

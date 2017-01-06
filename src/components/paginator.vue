@@ -70,8 +70,9 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   .paginator
-    width: 360px
-    position: relative
+    width: 100%
+    position: absolute
+    bottom: 10px
     text-align: center
     margin: 0 auto
     .arrow
@@ -83,9 +84,9 @@
       margin: 18px 10px 0 10px
       cursor: pointer
       &.left
-        left: 0
+        left: calc(50% - 180px)
       &.right
-        right: 0
+        right: calc(50% - 180px)
     .thumbnail-wrapper
       display: inline-block
 </style>
