@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <fancybox :mapInfo="images[index]" @addIndex="nextImg" @decIndex="prevImg"></fancybox>
-    <paginator :images="images" :activeIndex="index"></paginator>
+    <paginator :images="images" :activeIndex="index" @changeIndex="changeImg($event)"></paginator>
   </div>
 </template>
 
@@ -13,7 +13,7 @@
     name: 'app',
     data () {
       return {
-        index: 7,
+        index: 4,
         images: [
           {
             imageUrl: 'https://images.unsplash.com/photo-1454991727061-be514eae86f7?dpr=2&auto=format&crop=faces&fit=crop&w=240&h=159',
@@ -94,6 +94,9 @@
       },
       prevImg () {
         this.index--
+      },
+      changeImg (event) {
+        this.index = event
       }
     },
     components: {

@@ -3,7 +3,7 @@
     <div v-if="index > 0" class="arrow left" @click="index -= 1">
       <icon :type="'arrowLeft'" :color="'#ccc'"></icon>
     </div>
-    <div class="thumbnail-wrapper" v-for="(item,index) in activeImages">
+    <div class="thumbnail-wrapper" v-for="item in activeImages" @click="setActive(item.index-1)">
       <thumbnail :imageUrl="item.imageUrl" :class="{active: item.isActive}"></thumbnail>
     </div>
     <div v-if="index < (images.length - 5)" class="arrow right" @click="index += 1">
@@ -52,6 +52,9 @@
         }
       },
       setActive (idx) {
+        if (idx !== this.activeIndex) {
+          this.$emit('changeIndex', idx)
+        }
         this.images.forEach((item) => {
           item.isActive = false
         })
