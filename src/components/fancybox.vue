@@ -6,7 +6,7 @@
           <icon :type="'close'" :color="'#ccc'"></icon>
         </div>
       </div>
-        <img class="image" :src="mapInfo.imageUrl" @click="addIndex">
+        <img ref="image" class="image fadeInLeft animated" :src="mapInfo.imageUrl" @click="addIndex">
       <div class="footer">
         <span class="caption">{{ mapInfo.caption }}</span>
         <span class="count">{{ mapInfo.index }} of {{ mapInfo.total }}</span>
@@ -38,15 +38,32 @@
         }
       }
     },
+    data () {
+      return {
+        direction: 'fadeInRight'
+      }
+    },
     methods: {
       decIndex () {
         this.$emit('decIndex')
+        this.direction = 'fadeInLeft'
       },
       addIndex () {
         this.$emit('addIndex')
+        this.direction = 'fadeInRight'
       },
       close () {
         this.$emit('close')
+      }
+    },
+    watch: {
+      mapInfo () {
+        this.$refs.image.classList.remove('fadeInLeft', 'fadeInRight')
+        this.$refs.image.style.opacity = 0
+        let that = this
+        window.setTimeout(function () {
+          that.$refs.image.classList.add(that.direction)
+        }, 0)
       }
     },
     components: {
