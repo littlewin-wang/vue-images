@@ -2,20 +2,20 @@
   <div class="fancybox">
     <div class="image-wrapper">
       <div class="header">
-        <div class="close" @click="close">
+        <div class="close" @click.stop="close">
           <icon :type="'close'" :color="'#ccc'"></icon>
         </div>
       </div>
-        <img ref="image" class="image" :src="mapInfo.imageUrl" @click="addIndex">
+        <img ref="image" class="image" :src="mapInfo.imageUrl" @click.stop="addIndex">
       <div class="footer">
-        <span class="caption">{{ mapInfo.caption }}</span>
-        <span class="count">{{ mapInfo.index }} of {{ mapInfo.total }}</span>
+        <span class="caption" @click.stop="">{{ mapInfo.caption }}</span>
+        <span class="count" @click.stop="">{{ mapInfo.index }} of {{ mapInfo.total }}</span>
       </div>
     </div>
-    <div v-if="mapInfo.index > 1" class="arrow left" @click="decIndex">
+    <div v-if="mapInfo.index > 1" class="arrow left" @click.stop="decIndex">
       <icon :type="'arrowLeft'" :color="'#ccc'"></icon>
     </div>
-    <div v-if="mapInfo.index < mapInfo.total" class="arrow right" @click="addIndex">
+    <div v-if="mapInfo.index < mapInfo.total" class="arrow right" @click.stop="addIndex">
       <icon :type="'arrowRight'" :color="'#ccc'"></icon>
     </div>
   </div>

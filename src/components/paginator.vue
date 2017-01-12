@@ -1,12 +1,12 @@
 <template>
   <div class="paginator">
-    <div v-if="index > 0" class="arrow left" @click="index -= 1">
+    <div v-if="index > 0" class="arrow left" @click.stop="index -= 1">
       <icon :type="'arrowLeft'" :color="'#ccc'"></icon>
     </div>
-    <div class="thumbnail-wrapper" v-for="item in activeImages" @click="setActive(item.index-1)">
+    <div class="thumbnail-wrapper" v-for="item in activeImages" @click.stop="setActive(item.index-1)">
       <thumbnail :imageUrl="item.imageUrl" :class="{active: item.isActive}"></thumbnail>
     </div>
-    <div v-if="index < (images.length - 5)" class="arrow right" @click="index += 1">
+    <div v-if="index < (images.length - 5)" class="arrow right" @click.stop="index += 1">
       <icon :type="'arrowRight'" :color="'#ccc'"></icon>
     </div>
   </div>
