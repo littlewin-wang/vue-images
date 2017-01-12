@@ -96,16 +96,15 @@
     created () {
       if (this.isShow) {
         window.addEventListener('keydown', this.keyFun)
+        window.addEventListener('mousewheel', this.wheelFun)
       }
     },
     methods: {
       openImg () {
         this.isShow = true
-        window.addEventListener('keydown', this.keyFun)
       },
       closeImg () {
         this.isShow = false
-        window.removeEventListener('keydown', this.keyFun)
       },
       nextImg () {
         if (this.index < this.images.length - 1) {
@@ -134,6 +133,24 @@
             break
           default:
             return
+        }
+      },
+      wheelFun (event) {
+        if (event.deltaY > 0) {
+          this.nextImg()
+        } else {
+          this.prevImg()
+        }
+      }
+    },
+    watch: {
+      isShow () {
+        if (this.isShow) {
+          window.addEventListener('keydown', this.keyFun)
+          window.addEventListener('mousewheel', this.wheelFun)
+        } else {
+          window.removeEventListener('keydown', this.keyFun)
+          window.removeEventListener('mousewheel', this.wheelFun)
         }
       }
     },
