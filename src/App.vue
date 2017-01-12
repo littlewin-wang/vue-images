@@ -1,12 +1,15 @@
 <template>
   <div class="app">
-    <button v-show="!isShow" @click="openImg"></button>
-    <fancybox v-show="isShow" :mapInfo="images[index]" @close="closeImg" @addIndex="nextImg" @decIndex="prevImg"></fancybox>
-    <paginator v-show="isShow" :images="images" :activeIndex="index" @changeIndex="changeImg($event)"></paginator>
+    <gallery v-show="!isShow" :images="images" @changeIndex="changeImg($event)"></gallery>
+    <div class="lightbox " v-show="isShow">
+      <fancybox :mapInfo="images[index]" @close="closeImg" @addIndex="nextImg" @decIndex="prevImg"></fancybox>
+      <paginator :images="images" :activeIndex="index" @changeIndex="changeImg($event)"></paginator>
+    </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import gallery from 'components/gallery'
   import fancybox from 'components/fancybox'
   import paginator from 'components/paginator'
 
@@ -14,7 +17,7 @@
     name: 'app',
     data () {
       return {
-        isShow: true,
+        isShow: false,
         index: 2,
         images: [
           {
@@ -115,6 +118,7 @@
         }
       },
       changeImg (event) {
+        this.isShow = true
         this.index = event
       },
       keyFun (event) {
@@ -134,6 +138,7 @@
       }
     },
     components: {
+      gallery,
       fancybox,
       paginator
     }
@@ -141,8 +146,8 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .app
-    position: absolute
+  .lightbox
+    position: fixed
     top: 0
     width: 100%
     height: 100%
