@@ -1,7 +1,8 @@
 <template>
-  <div v-show="isShow" class="app">
-    <fancybox :mapInfo="images[index]" @close="closeImg" @addIndex="nextImg" @decIndex="prevImg"></fancybox>
-    <paginator :images="images" :activeIndex="index" @changeIndex="changeImg($event)"></paginator>
+  <div class="app">
+    <button v-show="!isShow" @click="openImg"></button>
+    <fancybox v-show="isShow" :mapInfo="images[index]" @close="closeImg" @addIndex="nextImg" @decIndex="prevImg"></fancybox>
+    <paginator v-show="isShow" :images="images" :activeIndex="index" @changeIndex="changeImg($event)"></paginator>
   </div>
 </template>
 
@@ -89,12 +90,19 @@
         ]
       }
     },
+    created () {
+      if (this.isShow) {
+        window.addEventListener('keydown', this.keyFun)
+      }
+    },
     methods: {
       openImg () {
         this.isShow = true
+        window.addEventListener('keydown', this.keyFun)
       },
       closeImg () {
         this.isShow = false
+        window.removeEventListener('keydown', this.keyFun)
       },
       nextImg () {
         if (this.index < this.images.length - 1) {
@@ -102,10 +110,27 @@
         }
       },
       prevImg () {
-        this.index--
+        if (this.index > 0) {
+          this.index--
+        }
       },
       changeImg (event) {
         this.index = event
+      },
+      keyFun (event) {
+        switch (event.keyCode) {
+          case 27:
+            this.closeImg()
+            break
+          case 37:
+            this.prevImg()
+            break
+          case 39:
+            this.nextImg()
+            break
+          default:
+            return
+        }
       }
     },
     components: {
