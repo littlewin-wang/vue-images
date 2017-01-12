@@ -71,6 +71,7 @@
     align-items: center
     .image-wrapper
       display: inline-block
+      position: relative
       margin: 0 auto
       .header
         height: 40px
@@ -84,7 +85,7 @@
           cursor: pointer
       .image
         display: block
-        max-height: calc(100vh - 160px)
+        max-height: calc(100vh - 170px)
         min-height: 200px
         @media screen and (min-width:720px)
           max-width: calc(85vw)
@@ -108,13 +109,14 @@
     .arrow
       display: inline-block
       position: absolute
-      top: calc(50vh - 25px)
       @media screen and (min-width:720px)
         height: 40px
         width: 40px
+        top: calc(50% - 8px)
       @media screen and (max-width:720px)
-        height: 25px
-        width: 25px
+        height: 20px
+        width: 20px
+        top: calc(50% + 12px)
       cursor: pointer
       &.left
         left: 0
