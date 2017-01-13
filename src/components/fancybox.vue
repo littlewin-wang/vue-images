@@ -6,16 +6,16 @@
           <icon :type="'close'" :color="'#ccc'"></icon>
         </div>
       </div>
-        <img ref="image" class="image" :src="mapInfo.imageUrl" @click.stop="addIndex">
+      <img ref="image" class="image" v-for="item in images" :src="item.imageUrl" v-if="item.index===index+1" @click.stop="addIndex">
       <div class="footer">
-        <span class="caption" @click.stop="">{{ mapInfo.caption }}</span>
-        <span class="count" @click.stop="">{{ mapInfo.index }} of {{ mapInfo.total }}</span>
+        <span class="caption" @click.stop="">{{ images[index].caption }}</span>
+        <span class="count" @click.stop="">{{ index+1 }} of {{ images[index].total }}</span>
       </div>
     </div>
-    <div v-if="mapInfo.index > 1" class="arrow left" @click.stop="decIndex">
+    <div v-if="index > 0" class="arrow left" @click.stop="decIndex">
       <icon :type="'arrowLeft'" :color="'#ccc'"></icon>
     </div>
-    <div v-if="mapInfo.index < mapInfo.total" class="arrow right" @click.stop="addIndex">
+    <div v-if="index < images[index].total-1" class="arrow right" @click.stop="addIndex">
       <icon :type="'arrowRight'" :color="'#ccc'"></icon>
     </div>
   </div>
@@ -26,17 +26,8 @@
 
   export default {
     props: {
-      mapInfo: {
-        type: Object,
-        default: () => {
-          return {
-            imageUrl: 'https://images.unsplash.com/photo-1452274381522-521513015433?dpr=2&auto=format&crop=faces&fit=crop&w=240&h=159',
-            caption: 'Photo by Teddy Kelley',
-            index: 2,
-            total: 10
-          }
-        }
-      }
+      index: Number,
+      images: Array
     },
     data () {
       return {
@@ -85,7 +76,7 @@
           cursor: pointer
       .image
         display: block
-        max-height: calc(100vh - 170px)
+        max-height: calc(100vh - 180px)
         min-height: 200px
         @media screen and (min-width:720px)
           max-width: calc(85vw)

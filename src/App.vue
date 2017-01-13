@@ -2,7 +2,7 @@
   <div class="app">
     <gallery :images="images" @changeIndex="changeImg($event)"></gallery>
     <div class="lightbox " v-show="isShow" @click="closeImg">
-      <fancybox :mapInfo="images[index]" @close="closeImg" @addIndex="nextImg" @decIndex="prevImg"></fancybox>
+      <fancybox :images="images" :index="index" @close="closeImg" @addIndex="nextImg" @decIndex="prevImg"></fancybox>
       <paginator :images="images" :activeIndex="index" @changeIndex="changeImg($event)"></paginator>
     </div>
   </div>
