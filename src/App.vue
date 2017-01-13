@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <gallery :images="images" @changeIndex="changeImg($event)"></gallery>
-    <div class="lightbox " v-show="isShow" @click="closeImg">
+    <div ref="lightbox" class="lightbox" v-show="isShow" @click="closeImg">
       <fancybox ref="fancybox" :images="images" :index="index" @close="closeImg" @addIndex="nextImg" @decIndex="prevImg"></fancybox>
       <paginator :images="images" :activeIndex="index" @changeIndex="changeImg($event)"></paginator>
     </div>
@@ -97,6 +97,7 @@
       if (this.isShow) {
         window.addEventListener('keydown', this.keyFun)
         window.addEventListener('mousewheel', this.wheelFun)
+        this.$refs.lightbox.addEventListener('touchstart', this.touchFun)
       }
     },
     methods: {
@@ -133,7 +134,7 @@
                 that.$refs.fancybox._data.next = true
                 that.$refs.fancybox._data.animation = true
                 that.prevImg()
-              }, 350)
+              }, 375)
             }
             break
           case 39:
@@ -143,7 +144,7 @@
                 that.$refs.fancybox._data.next = false
                 that.$refs.fancybox._data.animation = true
                 that.nextImg()
-              }, 350)
+              }, 375)
             }
             break
           default:
@@ -159,7 +160,7 @@
               that.$refs.fancybox._data.next = false
               that.$refs.fancybox._data.animation = true
               that.nextImg()
-            }, 350)
+            }, 375)
           }
         } else {
           if (this.index > 0) {
@@ -168,9 +169,37 @@
               that.$refs.fancybox._data.next = true
               that.$refs.fancybox._data.animation = true
               that.prevImg()
-            }, 350)
+            }, 375)
           }
         }
+      },
+      touchFun (event) {
+        let prevX = event.touches[0].clientX
+        this.$refs.lightbox.addEventListener('touchend', (e) => {
+          let nowX = e.changedTouches[0].clientX
+          var that = this
+          if (prevX > nowX + 50) {
+            if (this.index < this.images[this.index].total - 1) {
+              this.$refs.fancybox.$refs.images[this.index].classList.add('slideOutLeft')
+              window.setTimeout(() => {
+                that.$refs.fancybox._data.next = false
+                that.$refs.fancybox._data.animation = true
+                that.nextImg()
+                that.$refs.lightbox.removeEventListener('touchstart', that.touchFun)
+              }, 375)
+            }
+          } else if (nowX > prevX + 50) {
+            if (this.index > 0) {
+              this.$refs.fancybox.$refs.images[this.index].classList.add('slideOutRight')
+              window.setTimeout(() => {
+                that.$refs.fancybox._data.next = true
+                that.$refs.fancybox._data.animation = true
+                that.prevImg()
+                that.$refs.lightbox.removeEventListener('touchstart', that.touchFun)
+              }, 375)
+            }
+          }
+        })
       }
     },
     watch: {
@@ -178,9 +207,11 @@
         if (this.isShow) {
           window.addEventListener('keydown', this.keyFun)
           window.addEventListener('mousewheel', this.wheelFun)
+          this.$refs.lightbox.addEventListener('touchstart', this.touchFun)
         } else {
           window.removeEventListener('keydown', this.keyFun)
           window.removeEventListener('mousewheel', this.wheelFun)
+          this.$refs.lightbox.removeEventListener('touchstart', this.touchFun)
         }
       }
     },
