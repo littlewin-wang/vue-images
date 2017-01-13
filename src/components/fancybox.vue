@@ -6,7 +6,7 @@
           <icon :type="'close'" :color="'#ccc'"></icon>
         </div>
       </div>
-      <img ref="image" class="image" v-for="item in images" :src="item.imageUrl" v-if="item.index===index+1" @click.stop="addIndex">
+      <img ref="images" class="image animated" v-for="item in images" :src="item.imageUrl" v-show="item.index===index+1" @click.stop="addIndex">
       <div class="footer">
         <span class="caption" @click.stop="">{{ images[index].caption }}</span>
         <span class="count" @click.stop="">{{ index+1 }} of {{ images[index].total }}</span>
@@ -27,24 +27,54 @@
   export default {
     props: {
       index: Number,
-      images: Array
+      images: Array,
+      animate: {
+        type: Boolean,
+        default: false
+      }
     },
     data () {
       return {
-        direction: 'fadeInRight'
+        next: true,
+        animation: false
       }
     },
     methods: {
       decIndex () {
-        this.$emit('decIndex')
-        this.direction = 'fadeInLeft'
+        this.$refs.images[this.index].classList.add('slideOutRight')
+        var that = this
+        window.setTimeout(() => {
+          that.$emit('decIndex')
+          that.next = true
+          that.animation = true
+        }, 350)
       },
       addIndex () {
-        this.$emit('addIndex')
-        this.direction = 'fadeInRight'
+        if (this.index < this.images[this.index].total - 1) {
+          this.$refs.images[this.index].classList.add('slideOutLeft')
+          var that = this
+          window.setTimeout(() => {
+            that.$emit('addIndex')
+            that.next = false
+            that.animation = true
+          }, 350)
+        }
       },
       close () {
         this.$emit('close')
+        this.animation = false
+      }
+    },
+    watch: {
+      index () {
+        this.$refs.images[this.index].classList.remove('slideInLeft', 'slideInRight', 'slideOutLeft', 'slideOutRight')
+        let action = this.next ? 'slideInLeft' : 'slideInRight'
+        if (this.animation || this.animate) {
+          this.$refs.images[this.index].classList.add(action)
+        }
+        this.$nextTick(() => {
+          this.animation = false
+        })
       }
     },
     components: {

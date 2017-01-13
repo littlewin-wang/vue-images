@@ -2,7 +2,7 @@
   <div class="app">
     <gallery :images="images" @changeIndex="changeImg($event)"></gallery>
     <div class="lightbox " v-show="isShow" @click="closeImg">
-      <fancybox :images="images" :index="index" @close="closeImg" @addIndex="nextImg" @decIndex="prevImg"></fancybox>
+      <fancybox ref="fancybox" :images="images" :index="index" @close="closeImg" @addIndex="nextImg" @decIndex="prevImg"></fancybox>
       <paginator :images="images" :activeIndex="index" @changeIndex="changeImg($event)"></paginator>
     </div>
   </div>
@@ -121,25 +121,55 @@
         this.index = event
       },
       keyFun (event) {
+        var that = this
         switch (event.keyCode) {
           case 27:
             this.closeImg()
             break
           case 37:
-            this.prevImg()
+            if (this.index > 0) {
+              this.$refs.fancybox.$refs.images[this.index].classList.add('slideOutRight')
+              window.setTimeout(() => {
+                that.$refs.fancybox._data.next = true
+                that.$refs.fancybox._data.animation = true
+                that.prevImg()
+              }, 350)
+            }
             break
           case 39:
-            this.nextImg()
+            if (this.index < this.images[this.index].total - 1) {
+              this.$refs.fancybox.$refs.images[this.index].classList.add('slideOutLeft')
+              window.setTimeout(() => {
+                that.$refs.fancybox._data.next = false
+                that.$refs.fancybox._data.animation = true
+                that.nextImg()
+              }, 350)
+            }
             break
           default:
             return
         }
       },
       wheelFun (event) {
+        var that = this
         if (event.deltaY > 0) {
-          this.nextImg()
+          if (this.index < this.images[this.index].total - 1) {
+            this.$refs.fancybox.$refs.images[this.index].classList.add('slideOutLeft')
+            window.setTimeout(() => {
+              that.$refs.fancybox._data.next = false
+              that.$refs.fancybox._data.animation = true
+              that.nextImg()
+            }, 350)
+          }
         } else {
-          this.prevImg()
+          if (this.index > 0) {
+            this.$refs.fancybox.$refs.images[this.index].classList.add('slideOutRight')
+            window.setTimeout(() => {
+              that.$refs.fancybox._data.next = true
+              that.$refs.fancybox._data.animation = true
+              that.prevImg()
+            }, 350)
+          }
         }
       }
     },
