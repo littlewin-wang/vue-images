@@ -14,7 +14,7 @@
   import paginator from 'components/paginator'
 
   export default {
-    name: 'app',
+    name: 'lightbox',
     data () {
       return {
         isShow: false,
