@@ -22,13 +22,13 @@
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   .gallery
     display: flex
-    .wrapper, .smaller
+    .wrapper
       flex: 1
       box-sizing: border-box
       padding: 2px 1px
       img
         display: block
-        height: 10vh
+        height: 100px
         width: auto
         border: 0px
         border-radius: 2px
