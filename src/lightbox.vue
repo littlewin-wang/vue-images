@@ -122,9 +122,11 @@
         }
       },
       touchFun (event) {
+        event.stopPropagation()
         this.touchPoint.prev = event.touches[0].clientX
       },
       endFun (event) {
+        event.stopPropagation()
         this.touchPoint.now = event.changedTouches[0].clientX
         var that = this
         if (this.touchPoint.prev > this.touchPoint.now + 50) {
