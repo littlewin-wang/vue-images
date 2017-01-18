@@ -1,5 +1,5 @@
 new Vue({
-  el: '#app',
+  el: '#demo',
   data () {
     return {
       images: [
