@@ -13,7 +13,7 @@
 ## Demo & Examples
 Live demo: [https://littlewin-wang.github.io/vue-images/example/](https://littlewin-wang.github.io/vue-images/example/)
 
-## Install
+## Start guide
 
 - Import using module:
 ``` bash
@@ -46,3 +46,7 @@ new Vue({
   }
 })
 ```
+
+## Change log
+- 1.0.0: Init file structure -> npm publish
+- 1.0.1: Fix some bug when display in example page
