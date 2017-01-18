@@ -2,6 +2,8 @@
 
 > A simple lightbox component for displaying an array of images
 
+<br><img src="https://cloud.githubusercontent.com/assets/14028075/22059135/9a633f74-dda6-11e6-8314-3b745801b4e1.gif" width="70%" height="70%">
+
 ## Feature
 
 - Mobile friendly
