@@ -53,8 +53,21 @@
           <section id="examples" class="section-examples">
             <h2>Examples</h2>
             <div id="example">
+              <div style="margin-bottom: 20px;">
+                <p>Photos courtesy of <a href="https://unsplash.com/" target="_blank">Unsplash</a>.</p>                    <p>Support your keyboard to navigate <kbd>left</kbd> <kbd>right</kbd> <kbd>esc</kbd>. Support mouse scroll to navigate. Support mouse touch move to navigate.</p>
+                <p>Also, try resizing your browser window.</p>
+              </div>
               <div id="demo">
-                <vue-images :imgs="images"></vue-images>
+                <vue-images :imgs="images"
+                            :modalclose="modalclose"
+                            :keyinput="keyinput"
+                            :mousescroll="mousescroll"
+                            :showclosebutton="showclosebutton"
+                            :showcaption="showcaption"
+                            :imagecountseparator="imagecountseparator"
+                            :showimagecount="showimagecount"
+                            :showthumbnails="showthumbnails">
+                </vue-images>
               </div>
             </div>
           </section>
@@ -76,11 +89,11 @@ import vueImages from 'vue-images'</pre>
 
             <pre>
 new Vue({
-  el: '#app',
+  el: '#demo',
   data () {
     return {
       images: [...],
-      ...
+      ...(other parameters)
     }
   },
   components: {
@@ -110,79 +123,49 @@ new Vue({
                   <td align="left">Required. An array of objects containing valid src and srcset values of img element</td>
                 </tr>
                 <tr>
-                  <td align="left">backdropClosesModal</td>
+                  <td align="left">modalclose</td>
                   <td align="left">bool</td>
-                  <td align="left">false</td>
+                  <td align="left">true</td>
                   <td align="left">Allow users to exit the lightbox by clicking the backdrop</td>
                 </tr>
                 <tr>
-                  <td align="left">currentImage</td>
-                  <td align="left">number</td>
-                  <td align="left">0</td>
-                  <td align="left">The index of the image to display initially</td>
-                </tr>
-                <tr>
-                  <td align="left">enableKeyboardInput</td>
+                  <td align="left">keyinput</td>
                   <td align="left">bool</td>
                   <td align="left">true</td>
-                  <td align="left">Supports keyboard input - <code>esc</code>, <code>arrow left</code>, and <code>arrow right</code></td>
+                  <td align="left">Supports keyboard input - <kbd>esc</kbd>, <kbd>←</kbd>, and <kbd>→</kbd></td>
                 </tr>
                 <tr>
-                  <td align="left">imageCountSeparator</td>
+                  <td align="left">mousescroll</td>
+                  <td align="left">bool</td>
+                  <td align="left">true</td>
+                  <td align="left">Supports mouse scroll</td>
+                </tr>
+                <tr>
+                  <td align="left">showclosebutton</td>
+                  <td align="left">bool</td>
+                  <td align="left">true</td>
+                  <td align="left">Optionally display a close <kbd>X</kbd> button in top right corner</td>
+                </tr>
+                <tr>
+                  <td align="left">showcaption</td>
+                  <td align="left">bool</td>
+                  <td align="left">true</td>
+                  <td align="left">Optionally display a caption under the image</td>
+                </tr>
+                <tr>
+                  <td align="left">imagecountseparator</td>
                   <td align="left">string</td>
                   <td align="left">' of '</td>
                   <td align="left">Custom separator for the image count</td>
                 </tr>
                 <tr>
-                  <td align="left">isOpen</td>
-                  <td align="left">bool</td>
-                  <td align="left">false</td>
-                  <td align="left">Whether or not the lightbox is displayed</td>
-                </tr>
-                <tr>
-                  <td align="left">onClickPrev</td>
-                  <td align="left">func</td>
-                  <td align="left">undefined</td>
-                  <td align="left">Fired on request of the previous image</td>
-                </tr>
-                <tr>
-                  <td align="left">onClickNext</td>
-                  <td align="left">func</td>
-                  <td align="left">undefined</td>
-                  <td align="left">Fired on request of the next image</td>
-                </tr>
-                <tr>
-                  <td align="left">onClickImage</td>
-                  <td align="left">func</td>
-                  <td align="left">undefined</td>
-                  <td align="left">Handle click event on the current image</td>
-                </tr>
-                <tr>
-                  <td align="left">onClickThumbnail</td>
-                  <td align="left">func</td>
-                  <td align="left">undefined</td>
-                  <td align="left">Handle click on thumbnail</td>
-                </tr>
-                <tr>
-                  <td align="left">onClose</td>
-                  <td align="left">func</td>
-                  <td align="left">undefined</td>
-                  <td align="left">Required. Handle closing of the lightbox</td>
-                </tr>
-                <tr>
-                  <td align="left">showCloseButton</td>
-                  <td align="left">bool</td>
-                  <td align="left">true</td>
-                  <td align="left">Optionally display a close "X" button in top right corner</td>
-                </tr>
-                <tr>
-                  <td align="left">showImageCount</td>
+                  <td align="left">showimagecount</td>
                   <td align="left">bool</td>
                   <td align="left">true</td>
                   <td align="left">Optionally display image index, e.g., "3 of 20"</td>
                 </tr>
                 <tr>
-                  <td align="left">showThumbnails</td>
+                  <td align="left">showthumbnails</td>
                   <td align="left">bool</td>
                   <td align="left">false</td>
                   <td align="left">Optionally display thumbnails beneath the Lightbox</td>

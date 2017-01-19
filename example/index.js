@@ -43,7 +43,15 @@ new Vue({
           imageUrl: 'https://images.unsplash.com/photo-1470742292565-de43c4b02b57?dpr=2&auto=format&w=1024',
           caption: 'Photo by 10'
         }
-      ]
+      ],
+      modalclose: true,
+      keyinput: true,
+      mousescroll: true,
+      showclosebutton: true,
+      showcaption: true,
+      imagecountseparator: 'of',
+      showimagecount: true,
+      showthumbnails: true
     }
   },
   components: {

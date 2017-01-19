@@ -1,9 +1,9 @@
 <template>
   <div class="vue-images">
     <gallery :images="images" @changeIndex="changeImg($event)"></gallery>
-    <div ref="lightbox" class="lightbox" v-show="isShow" @click="closeImg">
-      <fancybox ref="fancybox" :images="images" :index="index" @close="closeImg" @addIndex="nextImg" @decIndex="prevImg"></fancybox>
-      <paginator :images="images" :activeIndex="index" @changeIndex="changeImg($event)"></paginator>
+    <div ref="lightbox" class="lightbox" v-show="isShow" @click="isShow=!modalclose">
+      <fancybox ref="fancybox" :images="images" :index="index" @close="closeImg" @addIndex="nextImg" @decIndex="prevImg" :showclosebutton="showclosebutton" :showcaption="showcaption" :imagecountseparator="imagecountseparator" :showimagecount="showimagecount"></fancybox>
+      <paginator :images="images" :activeIndex="index" @changeIndex="changeImg($event)" v-show="showthumbnails"></paginator>
     </div>
   </div>
 </template>
@@ -16,7 +16,15 @@
   export default {
     name: 'lightbox',
     props: {
-      imgs: Array
+      imgs: Array,
+      modalclose: Boolean,
+      keyinput: Boolean,
+      mousescroll: Boolean,
+      showclosebutton: Boolean,
+      showcaption: Boolean,
+      imagecountseparator: String,
+      showimagecount: Boolean,
+      showthumbnails: Boolean
     },
     computed: {
       images () {
@@ -34,7 +42,7 @@
     data () {
       return {
         isShow: false,
-        index: 2,
+        index: 1,
         touchPoint: {
           prev: 0,
           now: 0
@@ -70,22 +78,44 @@
         this.index = event
       },
       keyFun (event) {
-        var that = this
-        switch (event.keyCode) {
-          case 27:
-            this.closeImg()
-            break
-          case 37:
-            if (this.index > 0) {
-              this.$refs.fancybox.$refs.images[this.index].classList.add('slideOutRight')
-              window.setTimeout(() => {
-                that.$refs.fancybox._data.next = true
-                that.$refs.fancybox._data.animation = true
-                that.prevImg()
-              }, 375)
-            }
-            break
-          case 39:
+        if (this.keyinput) {
+          var that = this
+          switch (event.keyCode) {
+            case 27:
+              this.closeImg()
+              break
+            case 37:
+              if (this.index > 0) {
+                this.$refs.fancybox.$refs.images[this.index].classList.add('slideOutRight')
+                window.setTimeout(() => {
+                  that.$refs.fancybox._data.next = true
+                  that.$refs.fancybox._data.animation = true
+                  that.prevImg()
+                }, 375)
+              }
+              break
+            case 39:
+              if (this.index < this.images[this.index].total - 1) {
+                this.$refs.fancybox.$refs.images[this.index].classList.add('slideOutLeft')
+                window.setTimeout(() => {
+                  that.$refs.fancybox._data.next = false
+                  that.$refs.fancybox._data.animation = true
+                  that.nextImg()
+                }, 375)
+              }
+              break
+            default:
+              return
+          }
+        } else {
+          return
+        }
+      },
+      wheelFun (event) {
+        if (this.mousescroll) {
+          event.stopPropagation()
+          var that = this
+          if (event.deltaY > 0) {
             if (this.index < this.images[this.index].total - 1) {
               this.$refs.fancybox.$refs.images[this.index].classList.add('slideOutLeft')
               window.setTimeout(() => {
@@ -94,32 +124,18 @@
                 that.nextImg()
               }, 375)
             }
-            break
-          default:
-            return
-        }
-      },
-      wheelFun (event) {
-        event.stopPropagation()
-        var that = this
-        if (event.deltaY > 0) {
-          if (this.index < this.images[this.index].total - 1) {
-            this.$refs.fancybox.$refs.images[this.index].classList.add('slideOutLeft')
-            window.setTimeout(() => {
-              that.$refs.fancybox._data.next = false
-              that.$refs.fancybox._data.animation = true
-              that.nextImg()
-            }, 375)
+          } else {
+            if (this.index > 0) {
+              this.$refs.fancybox.$refs.images[this.index].classList.add('slideOutRight')
+              window.setTimeout(() => {
+                that.$refs.fancybox._data.next = true
+                that.$refs.fancybox._data.animation = true
+                that.prevImg()
+              }, 375)
+            }
           }
         } else {
-          if (this.index > 0) {
-            this.$refs.fancybox.$refs.images[this.index].classList.add('slideOutRight')
-            window.setTimeout(() => {
-              that.$refs.fancybox._data.next = true
-              that.$refs.fancybox._data.animation = true
-              that.prevImg()
-            }, 375)
-          }
+          return
         }
       },
       touchFun (event) {

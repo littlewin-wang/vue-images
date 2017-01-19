@@ -2,14 +2,14 @@
   <div class="fancybox">
     <div class="image-wrapper">
       <div class="header">
-        <div class="close" @click.stop="close">
+        <div class="close" @click.stop="close" v-show="showclosebutton">
           <icon :type="'close'" :color="'#ccc'"></icon>
         </div>
       </div>
       <img ref="images" class="image animated" v-for="item in images" :src="item.imageUrl" v-show="item.index===index+1" @click.stop="addIndex">
       <div class="footer">
-        <span class="caption" @click.stop="">{{ images[index].caption }}</span>
-        <span class="count" @click.stop="">{{ index+1 }} of {{ images[index].total }}</span>
+        <span class="caption" @click.stop="" v-show="showcaption">{{ images[index].caption }}</span>
+        <span class="count" @click.stop="" v-show="showimagecount">{{ index+1 }} {{imagecountseparator}} {{ images[index].total }}</span>
       </div>
     </div>
     <div v-if="index > 0" class="arrow left" @click.stop="decIndex">
@@ -31,7 +31,11 @@
       animate: {
         type: Boolean,
         default: false
-      }
+      },
+      showclosebutton: Boolean,
+      showcaption: Boolean,
+      imagecountseparator: String,
+      showimagecount: Boolean
     },
     data () {
       return {
