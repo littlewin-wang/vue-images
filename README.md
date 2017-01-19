@@ -49,6 +49,20 @@ new Vue({
 })
 ```
 
+## Options
+
+Property | Type | Default	| Description
+-------- | ---- | ------- | -----------
+images | array	| undefined	| Required. An array of objects containing valid src and srcset values of img element
+modalclose	| bool	| true	| Allow users to exit the lightbox by clicking the backdrop
+keyinput	| bool	| true	| Supports keyboard input - esc, ←, and →
+mousescroll	| bool	| true	| Supports mouse scroll
+showclosebutton	| bool	| true	| Optionally display a close X button in top right corner
+showcaption	| bool	| true	| Optionally display a caption under the image
+imagecountseparator	| string	| ' of '	| Custom separator for the image count
+showimagecount	| bool	| true	| Optionally display image index, e.g., "3 of 20"
+showthumbnails	| bool	| false	| Optionally display thumbnails beneath the Lightbox
+
 ## Change log
 - 1.0.0: Init file structure -> npm publish
 - 1.0.1: Fix some bug when display in example page
