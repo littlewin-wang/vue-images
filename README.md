@@ -2,6 +2,8 @@
 
 > A simple lightbox component for displaying an array of images
 
+<br><img src="https://cloud.githubusercontent.com/assets/14028075/22059135/9a633f74-dda6-11e6-8314-3b745801b4e1.gif" width="70%" height="70%">
+
 ## Feature
 
 - Mobile friendly
@@ -13,7 +15,7 @@
 ## Demo & Examples
 Live demo: [https://littlewin-wang.github.io/vue-images/example/](https://littlewin-wang.github.io/vue-images/example/)
 
-## Install
+## Start guide
 
 - Import using module:
 ``` bash
@@ -46,3 +48,7 @@ new Vue({
   }
 })
 ```
+
+## Change log
+- 1.0.0: Init file structure -> npm publish
+- 1.0.1: Fix some bug when display in example page
