@@ -1,4 +1,5 @@
 # vue-images
+[![NPM version](https://img.shields.io/npm/v/brick.js.svg?style=flat)](https://www.npmjs.com/package/vue-images)
 
 > A simple lightbox component for displaying an array of images
 
