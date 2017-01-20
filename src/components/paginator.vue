@@ -4,7 +4,7 @@
       <icon :type="'arrowLeft'" :color="'#ccc'"></icon>
     </div>
     <div class="thumbnail-wrapper" v-for="item in activeImages" @click.stop="setActive(item.index-1)">
-      <thumbnail :imageUrl="item.imageUrl" :class="{active: item.isActive}"></thumbnail>
+      <thumbnail :imageUrl="item.imageUrl" :class="{active: item.isActive}" v-if="!isMove"></thumbnail>
     </div>
     <div v-if="index < (images.length - 5)" class="arrow right" @click.stop="index += 1">
       <icon :type="'arrowRight'" :color="'#ccc'"></icon>
@@ -23,7 +23,8 @@
     },
     data () {
       return {
-        index: 0
+        index: 0,
+        isMove: false
       }
     },
     computed: {
@@ -55,10 +56,12 @@
         if (idx !== this.activeIndex) {
           this.$emit('changeIndex', idx)
         }
+        this.isMove = true
         this.images.forEach((item) => {
           item.isActive = false
         })
         this.images[idx].isActive = true
+        this.isMove = false
       }
     },
     components: {
