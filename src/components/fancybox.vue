@@ -2,6 +2,12 @@
   <div class="fancybox">
     <div class="image-wrapper">
       <div class="header">
+        <div class="play" @click.stop="play">
+          <icon :type="'play'" :color="'#ccc'"></icon>
+        </div>
+        <div class="full" @click.stop="full">
+          <icon :type="'full'" :color="'#ccc'"></icon>
+        </div>
         <div class="close" @click.stop="close" v-show="showclosebutton">
           <icon :type="'close'" :color="'#ccc'"></icon>
         </div>
@@ -67,6 +73,37 @@
       close () {
         this.$emit('close')
         this.animation = false
+      },
+      full () {
+        var isFullScreen = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement
+
+        function launchFullscreen (element) {
+          if (element.requestFullscreen) {
+            element.requestFullscreen()
+          } else if (element.mozRequestFullScreen) {
+            element.mozRequestFullScreen()
+          } else if (element.webkitRequestFullscreen) {
+            element.webkitRequestFullscreen()
+          } else if (element.msRequestFullscreen) {
+            element.msRequestFullscreen()
+          }
+        }
+
+        function exitFullscreen () {
+          if (document.exitFullscreen) {
+            document.exitFullscreen()
+          } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen()
+          } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen()
+          }
+        }
+
+        if (isFullScreen) {
+          exitFullscreen()
+        } else {
+          launchFullscreen(document.documentElement)
+        }
       }
     },
     watch: {
@@ -101,13 +138,19 @@
       .header
         height: 40px
         position: relative
-        .close
+        text-align: left
+        .play, .full, .close
+          display: inline-block
           width: 20px
           height: 20px
+          cursor: pointer
+        .play, .full
+          margin-top: 10px
+          margin-right: 10px
+        .close
           position: absolute
           right: 0
           top: 10px
-          cursor: pointer
       .image
         display: block
         max-height: calc(100vh - 180px)
