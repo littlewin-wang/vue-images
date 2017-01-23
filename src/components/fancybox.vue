@@ -6,7 +6,8 @@
           <icon :type="'play'" :color="'#ccc'"></icon>
         </div>
         <div class="full" @click.stop="full">
-          <icon :type="'full'" :color="'#ccc'"></icon>
+          <icon v-if="!isFullScreen" :type="'full'" :color="'#ccc'"></icon>
+          <icon v-else :type="'exitfull'" :color="'#ccc'"></icon>
         </div>
         <div class="close" @click.stop="close" v-show="showclosebutton">
           <icon :type="'close'" :color="'#ccc'"></icon>
@@ -46,7 +47,8 @@
     data () {
       return {
         next: true,
-        animation: false
+        animation: false,
+        isFullScreen: document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement
       }
     },
     methods: {
@@ -75,8 +77,6 @@
         this.animation = false
       },
       full () {
-        var isFullScreen = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement
-
         function launchFullscreen (element) {
           if (element.requestFullscreen) {
             element.requestFullscreen()
@@ -99,10 +99,12 @@
           }
         }
 
-        if (isFullScreen) {
+        if (this.isFullScreen) {
           exitFullscreen()
+          this.isFullScreen = !this.isFullScreen
         } else {
           launchFullscreen(document.documentElement)
+          this.isFullScreen = !this.isFullScreen
         }
       }
     },

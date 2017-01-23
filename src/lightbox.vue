@@ -78,6 +78,7 @@
         this.index = event
       },
       keyFun (event) {
+        event.preventDefault()
         if (this.keyinput) {
           var that = this
           switch (event.keyCode) {
