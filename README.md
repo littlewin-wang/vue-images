@@ -69,3 +69,4 @@ showthumbnails	| bool	| false	| Optionally display thumbnails beneath the Lightb
 - 1.0.0: Init file structure -> npm publish
 - 1.0.1: Fix some bug when display in example page
 - 1.0.2: Add basic config options
+- 1.0.3: Add full screen and autoplay handle
