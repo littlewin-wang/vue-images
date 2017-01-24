@@ -36,6 +36,7 @@
     props: {
       index: Number,
       images: Array,
+      reset: Boolean,
       animate: {
         type: Boolean,
         default: false
@@ -135,6 +136,12 @@
             this.animation = false
           }
         })
+      },
+      reset () {
+        if (this.reset) {
+          this.isPlay = false
+          this.animation = false
+        }
       }
     },
     components: {
