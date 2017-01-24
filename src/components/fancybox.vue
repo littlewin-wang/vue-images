@@ -3,7 +3,8 @@
     <div class="image-wrapper">
       <div class="header">
         <div class="play" @click.stop="play">
-          <icon :type="'play'" :color="'#ccc'"></icon>
+          <icon v-if="!isPlay" :type="'play'" :color="'#ccc'"></icon>
+          <icon v-else :type="'pause'" :color="'#ccc'"></icon>
         </div>
         <div class="full" @click.stop="full">
           <icon v-if="!isFullScreen" :type="'full'" :color="'#ccc'"></icon>
@@ -48,7 +49,8 @@
       return {
         next: true,
         animation: false,
-        isFullScreen: document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement
+        isFullScreen: document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen,
+        isPlay: false
       }
     },
     methods: {
@@ -72,9 +74,16 @@
           }, 350)
         }
       },
-      close () {
-        this.$emit('close')
-        this.animation = false
+      play () {
+        this.next = false
+        if (!this.isPlay) {
+          this.animation = true
+          this.$emit('play')
+        } else {
+          this.animation = false
+          this.$emit('pause')
+        }
+        this.isPlay = !this.isPlay
       },
       full () {
         function launchFullscreen (element) {
@@ -106,6 +115,12 @@
           launchFullscreen(document.documentElement)
           this.isFullScreen = !this.isFullScreen
         }
+      },
+      close () {
+        this.isPlay = false
+        this.$emit('pause')
+        this.$emit('close')
+        this.animation = false
       }
     },
     watch: {
@@ -116,7 +131,9 @@
           this.$refs.images[this.index].classList.add(action)
         }
         this.$nextTick(() => {
-          this.animation = false
+          if (!this.isPlay) {
+            this.animation = false
+          }
         })
       }
     },

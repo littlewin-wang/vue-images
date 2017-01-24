@@ -2,7 +2,7 @@
   <div class="vue-images">
     <gallery :images="images" @changeIndex="changeImg($event)"></gallery>
     <div ref="lightbox" class="lightbox" v-show="isShow" @click="isShow=!modalclose">
-      <fancybox ref="fancybox" :images="images" :index="index" @close="closeImg" @addIndex="nextImg" @decIndex="prevImg" :showclosebutton="showclosebutton" :showcaption="showcaption" :imagecountseparator="imagecountseparator" :showimagecount="showimagecount"></fancybox>
+      <fancybox ref="fancybox" :images="images" :index="index" @play="playImg" @pause="pauseImg" @close="closeImg" @addIndex="nextImg" @decIndex="prevImg" :showclosebutton="showclosebutton" :showcaption="showcaption" :imagecountseparator="imagecountseparator" :showimagecount="showimagecount"></fancybox>
       <paginator :images="images" :activeIndex="index" @changeIndex="changeImg($event)" v-show="showthumbnails"></paginator>
     </div>
   </div>
@@ -43,6 +43,7 @@
       return {
         isShow: false,
         index: 1,
+        playTimer: null,
         touchPoint: {
           prev: 0,
           now: 0
@@ -60,12 +61,21 @@
       openImg () {
         this.isShow = true
       },
+      playImg () {
+        var that = this
+        this.playTimer = window.setInterval(that.nextImg, 2000)
+      },
+      pauseImg () {
+        window.clearInterval(this.playTimer)
+      },
       closeImg () {
         this.isShow = false
       },
       nextImg () {
         if (this.index < this.images.length - 1) {
           this.index++
+        } else {
+          this.index = 0
         }
       },
       prevImg () {
@@ -177,6 +187,7 @@
           this.$refs.lightbox.addEventListener('touchstart', this.touchFun)
           this.$refs.lightbox.addEventListener('touchend', this.endFun)
         } else {
+          this.pauseImg()
           document.body.style.position = 'static'
           window.removeEventListener('keydown', this.keyFun)
           this.$refs.lightbox.removeEventListener('mousewheel', this.wheelFun)

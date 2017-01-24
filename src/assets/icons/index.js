@@ -4,5 +4,6 @@ module.exports = {
   close: require('./close'),
   exitfull: require('./exitfull'),
   full: require('./full'),
+  pause: require('./pause'),
   play: require('./play')
 }
