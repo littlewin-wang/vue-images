@@ -54,6 +54,12 @@
         isPlay: false
       }
     },
+    created () {
+      var that = this
+      document.addEventListener('webkitfullscreenchange', () => {
+        that.isFullScreen = !that.isFullScreen
+      })
+    },
     methods: {
       decIndex () {
         this.$refs.images[this.index].classList.add('slideOutRight')
@@ -111,10 +117,8 @@
 
         if (this.isFullScreen) {
           exitFullscreen()
-          this.isFullScreen = !this.isFullScreen
         } else {
           launchFullscreen(document.documentElement)
-          this.isFullScreen = !this.isFullScreen
         }
       },
       close () {
