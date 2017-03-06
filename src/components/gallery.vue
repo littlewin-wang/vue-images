@@ -1,7 +1,7 @@
 <template>
   <div class="gallery">
     <div class="wrapper" v-for="(item, index) in images">
-      <img :src="item.imageUrl" @click="setActive(index)">
+      <img :data-src="item.imageUrl" class="lazyload" @click="setActive(index)">
     </div>
   </div>
 </template>
