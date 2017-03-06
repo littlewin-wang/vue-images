@@ -56,7 +56,13 @@
     },
     created () {
       var that = this
+      document.addEventListener('fullscreenchange', () => {
+        that.isFullScreen = !that.isFullScreen
+      })
       document.addEventListener('webkitfullscreenchange', () => {
+        that.isFullScreen = !that.isFullScreen
+      })
+      document.addEventListener('mozfullscreenchange', () => {
         that.isFullScreen = !that.isFullScreen
       })
     },

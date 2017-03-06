@@ -10,9 +10,11 @@ var cssSourceMapDev = (env === 'development' && config.dev.cssSourceMap)
 var cssSourceMapProd = (env === 'production' && config.build.productionSourceMap)
 var useCssSourceMap = cssSourceMapDev || cssSourceMapProd
 
+var entryFile = (env === 'development' ? './src/main.dev.js' : './src/main.prod.js')
+
 module.exports = {
   entry: {
-    app: './src/main.js'
+    app: entryFile
   },
   output: {
     path: config.build.assetsRoot,
