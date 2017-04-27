@@ -77,14 +77,25 @@
             <pre>// Install using npm
 npm install vue-images --save
 
-// Include stylesheet
-require('vue-images/dist/vue-images.css')
-
 // In ES6 module
-import vueImages from 'vue-images'</pre>
+import vueImages from 'vue-images/dist/vue-images'</pre>
+            <pre>
+new Vue({
+  el: '#demo',
+  data () {
+    return {
+      images: [...],
+      ...(other parameters)
+    }
+  },
+  components: {
+    vueImages: vueImages
+  }
+})</pre>
+
+
             <p>2. Import using script tag:</p>
-							<pre><code>&lt;link rel="stylesheet" href="../node-modules/vue-images/dist/vue-images.css" charset="utf-8"&gt;
-&lt;script src="../node-modules/vue-images/dist/vue-images.js"&gt;&lt;/script&gt;</code></pre>
+							<pre><code>&lt;script src="../node-modules/vue-images/dist/vue-images.js"&gt;&lt;/script&gt;</code></pre>
 
             <pre>
 new Vue({

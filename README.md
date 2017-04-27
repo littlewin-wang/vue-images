@@ -25,7 +25,21 @@ Live demo: [https://littlewin-wang.github.io/vue-images/example/](https://little
 npm install vue-images --save
 
 // In ES6 module
-import vueImages from 'vue-images'
+import vueImages from 'vue-images/dist/vue-images'
+
+// Use module as component
+new Vue({
+  el: '#app',
+  data () {
+    return {
+      images: [...],
+      ...
+    }
+  },
+  components: {
+    vueImages: vueImages
+  }
+})
 ```
 - Import using script tag:
 ``` html
