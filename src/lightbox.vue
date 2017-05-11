@@ -42,7 +42,7 @@
     data () {
       return {
         isShow: false,
-        index: 1,
+        index: 0,
         playTimer: null,
         touchPoint: {
           prev: 0,

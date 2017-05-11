@@ -82,3 +82,5 @@ showthumbnails	| bool	| false	| Optionally display thumbnails beneath the Lightb
 - 1.0.3: Add full screen and autoplay handle
 - 1.0.4: Fix #2 & #3
 - 1.0.5: Package css,js to single js file
+- 1.0.6: fix #6
+- 1.0.7: Fix #8
