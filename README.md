@@ -84,3 +84,4 @@ showthumbnails	| bool	| false	| Optionally display thumbnails beneath the Lightb
 - 1.0.5: Package css,js to single js file
 - 1.0.6: fix #6
 - 1.0.7: Fix #8
+- 1.0.8: Fix #9 (add html parser in the caption & add flex-wrap to the gallery)

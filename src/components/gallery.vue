@@ -22,6 +22,7 @@
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   .gallery
     display: flex
+    flex-wrap: wrap
     .wrapper
       flex: 1
       box-sizing: border-box

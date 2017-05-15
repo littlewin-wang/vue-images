@@ -16,7 +16,7 @@
       </div>
       <img ref="images" class="image animated lazyload" v-for="item in images" :data-src="item.imageUrl" v-show="item.index===index+1" @click.stop="addIndex">
       <div class="footer">
-        <span class="caption" @click.stop="" v-show="showcaption">{{ images[index].caption }}</span>
+        <span class="caption" @click.stop="" v-show="showcaption" v-html="images[index].caption"></span>
         <span class="count" @click.stop="" v-show="showimagecount">{{ index+1 }} {{imagecountseparator}} {{ images[index].total }}</span>
       </div>
     </div>
@@ -206,6 +206,10 @@
           display: inline-block
           font-size: 14px
           color: #fff
+          a
+            color: #fff
+            &:hover
+              color: #888
         .count
           position: absolute
           font-size: 12px

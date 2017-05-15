@@ -5,7 +5,7 @@ new Vue({
       images: [
         {
           imageUrl: 'https://images.unsplash.com/photo-1454991727061-be514eae86f7?dpr=2&auto=format&w=1024',
-          caption: 'Photo by 1'
+          caption: '<a href="#">Photo by 1</a>'
         },
         {
           imageUrl: 'https://images.unsplash.com/photo-1455717974081-0436a066bb96?dpr=2&auto=format&w=1024',
