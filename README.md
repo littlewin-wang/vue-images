@@ -25,7 +25,7 @@ Live demo: [https://littlewin-wang.github.io/vue-images/example/](https://little
 npm install vue-images --save
 
 // In ES6 module
-import vueImages from 'vue-images/dist/vue-images'
+import vueImages from 'vue-images'
 
 // Use module as component
 new Vue({
@@ -85,3 +85,4 @@ showthumbnails	| bool	| false	| Optionally display thumbnails beneath the Lightb
 - 1.0.6: fix #6
 - 1.0.7: Fix #8
 - 1.0.8: Fix #9 (add html parser in the caption & add flex-wrap to the gallery)
+- 1.0.9: Add 'main' in package.json
