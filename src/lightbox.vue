@@ -1,6 +1,6 @@
 <template>
   <div class="vue-images">
-    <gallery :images="images" @changeIndex="changeImg($event)"></gallery>
+    <gallery :images="images" :deletebtn="deletebtn" @changeIndex="changeImg($event)" @deleteImage="deleteImage($event)"></gallery>
     <div ref="lightbox" class="lightbox" v-show="isShow" @click="isShow=!modalclose">
       <fancybox ref="fancybox" :images="images" :index="index" :reset="!isShow" @play="playImg" @pause="pauseImg" @close="closeImg" @addIndex="nextImg" @decIndex="prevImg" :showclosebutton="showclosebutton" :showcaption="showcaption" :imagecountseparator="imagecountseparator" :showimagecount="showimagecount"></fancybox>
       <paginator :images="images" :activeIndex="index" @changeIndex="changeImg($event)" v-show="showthumbnails"></paginator>
@@ -24,7 +24,8 @@
       showcaption: Boolean,
       imagecountseparator: String,
       showimagecount: Boolean,
-      showthumbnails: Boolean
+      showthumbnails: Boolean,
+      deletebtn: String
     },
     computed: {
       images () {
@@ -58,6 +59,10 @@
       }
     },
     methods: {
+      deleteImage (imageId) {
+        console.log('[DEBUG_LIGHTBOX]x clicked, id: ' + imageId)
+        this.$emit('delete', imageId)
+      },
       openImg () {
         this.isShow = true
       },

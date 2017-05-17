@@ -65,7 +65,10 @@
                             :showcaption="showcaption"
                             :imagecountseparator="imagecountseparator"
                             :showimagecount="showimagecount"
-                            :showthumbnails="showthumbnails">
+                            :showthumbnails="showthumbnails"
+                            :deletebtn="deletebtn"
+                            @delete="deleteAjax($event)"
+                >
                 </vue-images>
               </div>
             </div>

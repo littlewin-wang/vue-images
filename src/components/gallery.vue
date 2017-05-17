@@ -2,6 +2,7 @@
   <div class="gallery">
     <div class="wrapper" v-for="(item, index) in images">
       <img :data-src="item.imageUrl" class="lazyload" @click="setActive(index)">
+      <span v-if="deletebtn" @click="deleteImage(item.id)">{{ deletebtn }}</span>
     </div>
   </div>
 </template>
@@ -9,11 +10,16 @@
 <script type="text/ecmascript-6">
   export default {
     props: {
-      images: Array
+      images: Array,
+      deletebtn: String
     },
     methods: {
       setActive (idx) {
         this.$emit('changeIndex', idx)
+      },
+
+      deleteImage (imageId) {
+        this.$emit('deleteImage', imageId)
       }
     }
   }
