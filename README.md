@@ -1,6 +1,6 @@
 # vue-images
-[![npm version](https://img.shields.io/npm/v/vue-images.svg)](https://badge.fury.io/js/vue-images)
-[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.png?v=103)](https://github.com/littlewin-wang/vue-images/blob/master/LICENSE)
+[![npm version](https://img.shields.io/npm/v/vue-images.svg?style=flat-square)](https://badge.fury.io/js/vue-images)
+[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://github.com/littlewin-wang/vue-images/blob/master/LICENSE)
 
 > A simple lightbox component for displaying an array of images
 
