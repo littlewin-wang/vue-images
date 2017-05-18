@@ -1,5 +1,5 @@
 <template>
-  <div class="thumbnail" :style="{ backgroundImage: 'url(' + imageUrl + ')' }"></div>
+  <div class="vue-img-thumb" :style="{ backgroundImage: 'url(' + imageUrl + ')' }"></div>
 </template>
 
 <script type="text/ecmascript-6">
@@ -11,7 +11,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .thumbnail
+  .vue-img-thumb
     display: inline-block
     margin: 2px
     width: 50px
