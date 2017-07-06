@@ -29,13 +29,22 @@
     computed: {
       images () {
         let retArr = []
-        let len = this.imgs.length
-        this.imgs.forEach((item, index) => {
-          item['index'] = index + 1
-          item['total'] = len
-          item['isActive'] = false
-          retArr.push(item)
+        let idx = 0
+
+        // Filter to remove undefined items
+        this.imgs.forEach((item) => {
+          if (item) {
+            item['index'] = ++idx
+            item['isActive'] = false
+            item['caption'] = item.caption ? item.caption : ''
+            retArr.push(item)
+          }
         })
+
+        for (let i = 0, len = retArr.length; i < len; i++) {
+          retArr[i]['total'] = len
+        }
+
         return retArr
       }
     },
