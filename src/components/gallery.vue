@@ -2,6 +2,7 @@
   <div class="gallery">
     <div class="wrapper" v-for="(item, index) in images">
       <img :data-src="item.imageUrl" class="lazyload" @click="setActive(index)">
+      <div v-if="showcaption" class="image-caption" v-html="item.caption"></div>
     </div>
   </div>
 </template>
@@ -9,7 +10,8 @@
 <script type="text/ecmascript-6">
   export default {
     props: {
-      images: Array
+      images: Array,
+      showcaption: Boolean
     },
     methods: {
       setActive (idx) {
@@ -35,4 +37,8 @@
         border-radius: 2px
         cursor: pointer
         overflow: hidden
+      .image-caption
+        text-align: center
+        max-width: 250px
+        margin: auto
 </style>
