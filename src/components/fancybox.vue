@@ -14,7 +14,9 @@
           <icon :type="'close'" :color="'#ccc'"></icon>
         </div>
       </div>
-      <img ref="images" class="image animated lazyload" v-for="item in images" :key="item.index" :data-src="item.imageUrl" v-show="item.index===index+1" @click.stop="addIndex">
+      <transition-group :mode="transition.mode" :enter-active-class="'animated ' + transition.enterClass" :leave-active-class="'animated ' + transition.leaveClass">
+        <img ref="images" class="image lazyload" v-for="item in images" :key="item.index" :data-src="item.imageUrl" v-show="item.index===index+1 && !reset" @click.stop="addIndex">
+      </transition-group>
       <div class="footer">
         <span class="caption" @click.stop v-show="showcaption" v-html="images[index].caption"></span>
         <span class="count" @click.stop v-show="showimagecount">{{ index+1 }} {{imagecountseparator}} {{ images[index].total }}</span>
@@ -51,7 +53,8 @@
         next: true,
         animation: false,
         isFullScreen: document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen,
-        isPlay: false
+        isPlay: false,
+        isShow: true
       }
     },
     created () {
@@ -66,24 +69,41 @@
         that.isFullScreen = !that.isFullScreen
       })
     },
+    computed: {
+      transition () {
+        return {
+          mode: '',
+          enterClass: this.next ? 'slideInLeft' : 'slideInRight',
+          leaveClass: this.next ? 'slideOutRight' : 'slideOutLeft'
+        }
+      }
+    },
     methods: {
       decIndex () {
-        this.$refs.images[this.index].classList.add('slideOutRight')
-        var that = this
-        window.setTimeout(() => {
-          that.$emit('decIndex')
-          that.next = true
-          that.animation = true
+        if (this.timeout) {
+          clearTimeout(this.timeout)
+        } else {
+          this.$emit('decIndex')
+          this.next = true
+          this.animation = true
+        }
+
+        this.timeout = setTimeout(() => {
+          this.timeout = null
         }, 350)
       },
       addIndex () {
         if (this.index < this.images[this.index].total - 1) {
-          this.$refs.images[this.index].classList.add('slideOutLeft')
-          var that = this
-          window.setTimeout(() => {
-            that.$emit('addIndex')
-            that.next = false
-            that.animation = true
+          if (this.timeout) {
+            clearTimeout(this.timeout)
+          } else {
+            this.$emit('addIndex')
+            this.next = false
+            this.animation = true
+          }
+
+          this.timeout = setTimeout(() => {
+            this.timeout = null
           }, 350)
         }
       },
@@ -136,11 +156,6 @@
     },
     watch: {
       index () {
-        this.$refs.images[this.index].classList.remove('slideInLeft', 'slideInRight', 'slideOutLeft', 'slideOutRight')
-        let action = this.next ? 'slideInLeft' : 'slideInRight'
-        if (this.animation || this.animate) {
-          this.$refs.images[this.index].classList.add(action)
-        }
         this.$nextTick(() => {
           if (!this.isPlay) {
             this.animation = false
@@ -188,7 +203,6 @@
           right: 0
           top: 10px
       .image
-        display: block
         max-height: calc(100vh - 180px)
         min-height: 200px
         @media screen and (min-width:720px)

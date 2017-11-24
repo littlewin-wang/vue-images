@@ -51,6 +51,7 @@
     data () {
       return {
         isShow: false,
+        direction: 'next',
         index: 0,
         playTimer: null,
         touchPoint: {
@@ -83,6 +84,7 @@
       nextImg () {
         if (this.index < this.images.length - 1) {
           this.index++
+          this.direction = 'next'
         } else {
           this.index = 0
         }
@@ -90,37 +92,48 @@
       prevImg () {
         if (this.index > 0) {
           this.index--
+          this.direction = 'prev'
         }
       },
       changeImg (event) {
         this.isShow = true
+        this.$refs.fancybox.next = this.index > event
         this.index = event
       },
       keyFun (event) {
         event.preventDefault()
         if (this.keyinput) {
-          var that = this
           switch (event.keyCode) {
             case 27:
               this.closeImg()
               break
             case 37:
               if (this.index > 0) {
-                this.$refs.fancybox.$refs.images[this.index].classList.add('slideOutRight')
-                window.setTimeout(() => {
-                  that.$refs.fancybox._data.next = true
-                  that.$refs.fancybox._data.animation = true
-                  that.prevImg()
+                if (this.timeout) {
+                  clearTimeout(this.timeout)
+                } else {
+                  this.$refs.fancybox.next = true
+                  this.$refs.fancybox.animation = true
+                  this.prevImg()
+                }
+
+                this.timeout = setTimeout(() => {
+                  this.timeout = null
                 }, 375)
               }
               break
             case 39:
               if (this.index < this.images[this.index].total - 1) {
-                this.$refs.fancybox.$refs.images[this.index].classList.add('slideOutLeft')
-                window.setTimeout(() => {
-                  that.$refs.fancybox._data.next = false
-                  that.$refs.fancybox._data.animation = true
-                  that.nextImg()
+                if (this.timeout) {
+                  clearTimeout(this.timeout)
+                } else {
+                  this.$refs.fancybox.next = false
+                  this.$refs.fancybox.animation = true
+                  this.nextImg()
+                }
+
+                this.timeout = setTimeout(() => {
+                  this.timeout = null
                 }, 375)
               }
               break
@@ -134,23 +147,32 @@
       wheelFun (event) {
         if (this.mousescroll) {
           event.stopPropagation()
-          var that = this
           if (event.deltaY > 0) {
             if (this.index < this.images[this.index].total - 1) {
-              this.$refs.fancybox.$refs.images[this.index].classList.add('slideOutLeft')
-              window.setTimeout(() => {
-                that.$refs.fancybox._data.next = false
-                that.$refs.fancybox._data.animation = true
-                that.nextImg()
+              if (this.timeout) {
+                clearTimeout(this.timeout)
+              } else {
+                this.$refs.fancybox.next = false
+                this.$refs.fancybox.animation = true
+                this.nextImg()
+              }
+
+              this.timeout = setTimeout(() => {
+                this.timeout = null
               }, 375)
             }
           } else {
             if (this.index > 0) {
-              this.$refs.fancybox.$refs.images[this.index].classList.add('slideOutRight')
-              window.setTimeout(() => {
-                that.$refs.fancybox._data.next = true
-                that.$refs.fancybox._data.animation = true
-                that.prevImg()
+              if (this.timeout) {
+                clearTimeout(this.timeout)
+              } else {
+                this.$refs.fancybox.next = true
+                this.$refs.fancybox.animation = true
+                this.prevImg()
+              }
+
+              this.timeout = setTimeout(() => {
+                this.timeout = null
               }, 375)
             }
           }
@@ -168,19 +190,17 @@
         var that = this
         if (this.touchPoint.prev > this.touchPoint.now + 50) {
           if (this.index < this.images[this.index].total - 1) {
-            this.$refs.fancybox.$refs.images[this.index].classList.add('slideOutLeft')
             window.setTimeout(() => {
-              that.$refs.fancybox._data.next = false
-              that.$refs.fancybox._data.animation = true
+              that.$refs.fancybox.next = false
+              that.$refs.fancybox.animation = true
               that.nextImg()
             }, 375)
           }
         } else if (this.touchPoint.now > this.touchPoint.prev + 50) {
           if (this.index > 0) {
-            this.$refs.fancybox.$refs.images[this.index].classList.add('slideOutRight')
             window.setTimeout(() => {
-              that.$refs.fancybox._data.next = true
-              that.$refs.fancybox._data.animation = true
+              that.$refs.fancybox.next = true
+              that.$refs.fancybox.animation = true
               that.prevImg()
             }, 375)
           }

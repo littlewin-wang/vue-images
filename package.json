@@ -26,7 +26,6 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "animate.css": "^3.5.2",
     "lazysizes": "^3.0.0",
     "vue": "^2.1.0"
   },
