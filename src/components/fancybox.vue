@@ -14,10 +14,10 @@
           <icon :type="'close'" :color="'#ccc'"></icon>
         </div>
       </div>
-      <img ref="images" class="image animated lazyload" v-for="item in images" :data-src="item.imageUrl" v-show="item.index===index+1" @click.stop="addIndex">
+      <img ref="images" class="image animated lazyload" v-for="item in images" :key="item.index" :data-src="item.imageUrl" v-show="item.index===index+1" @click.stop="addIndex">
       <div class="footer">
-        <span class="caption" @click.stop="" v-show="showcaption" v-html="images[index].caption"></span>
-        <span class="count" @click.stop="" v-show="showimagecount">{{ index+1 }} {{imagecountseparator}} {{ images[index].total }}</span>
+        <span class="caption" @click.stop v-show="showcaption" v-html="images[index].caption"></span>
+        <span class="count" @click.stop v-show="showimagecount">{{ index+1 }} {{imagecountseparator}} {{ images[index].total }}</span>
       </div>
     </div>
     <div v-if="index > 0" class="arrow left" @click.stop="decIndex">
