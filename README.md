@@ -15,7 +15,7 @@
 - Responsive design
 
 ## Demo & Examples
-Live demo: [https://littlewin-wang.github.io/vue-images/example/](https://littlewin-wang.github.io/vue-images/example/)
+Live demo: [http://github.littlewin.wang/vue-images/example/](http://github.littlewin.wang/vue-images/example/)
 
 ## Start guide
 
