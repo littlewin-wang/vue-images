@@ -1,6 +1,6 @@
 {
   "name": "vue-images",
-  "version": "1.0.10",
+  "version": "1.1.0",
   "description": "A simple lightbox component for displaying an array of images",
   "main": "./dist/vue-images.js",
   "author": "littlewin <littlewin.wang@gmail.com>",

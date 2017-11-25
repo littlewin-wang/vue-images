@@ -14,7 +14,7 @@
           <icon :type="'close'" :color="'#ccc'"></icon>
         </div>
       </div>
-      <transition-group :mode="transition.mode" :enter-active-class="'animated ' + transition.enterClass" :leave-active-class="'animated ' + transition.leaveClass">
+      <transition-group style="white-space:nowrap" :mode="transition.mode" :enter-active-class="'animated ' + transition.enterClass" :leave-active-class="'animated ' + transition.leaveClass">
         <img ref="images" class="image lazyload" v-for="item in images" :key="item.index" :data-src="item.imageUrl" v-show="item.index===index+1 && !reset" @click.stop="addIndex">
       </transition-group>
       <div class="footer">
@@ -53,8 +53,7 @@
         next: true,
         animation: false,
         isFullScreen: document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen,
-        isPlay: false,
-        isShow: true
+        isPlay: false
       }
     },
     created () {
@@ -203,6 +202,7 @@
           right: 0
           top: 10px
       .image
+        vertical-align: middle
         max-height: calc(100vh - 180px)
         min-height: 200px
         @media screen and (min-width:720px)

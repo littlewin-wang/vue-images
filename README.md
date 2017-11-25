@@ -87,3 +87,4 @@ showthumbnails	| bool	| false	| Optionally display thumbnails beneath the Lightb
 - 1.0.8: Fix #9 (add html parser in the caption & add flex-wrap to the gallery)
 - 1.0.9: Add 'main' in package.json
 - 1.0.10: Fix #17 & #14
+- 1.1.0: Add transition & debounce strategy

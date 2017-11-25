@@ -51,7 +51,6 @@
     data () {
       return {
         isShow: false,
-        direction: 'next',
         index: 0,
         playTimer: null,
         touchPoint: {
@@ -84,7 +83,6 @@
       nextImg () {
         if (this.index < this.images.length - 1) {
           this.index++
-          this.direction = 'next'
         } else {
           this.index = 0
         }
@@ -92,7 +90,6 @@
       prevImg () {
         if (this.index > 0) {
           this.index--
-          this.direction = 'prev'
         }
       },
       changeImg (event) {
